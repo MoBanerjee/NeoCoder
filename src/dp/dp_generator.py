@@ -10,7 +10,7 @@ import os
 import torch
 from torch.utils.data import DataLoader
 from torch import Tensor
-from vllm import SamplingParams
+
 
 logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
@@ -216,14 +216,13 @@ class OpenModelParallelThreadDPInference(CodeGenerator):
     
     def vllm_inference(self, 
                        dataloader: DataLoader,
-                       config: SamplingParams):
+                       config: Text):
         records = []
         for batch in tqdm(dataloader, desc="Inferencing DP"):
             
             problem_statements: List[Text] = batch['inputs'] # batch_size x dp_rounds
 
-            results = self.model.model.generate(problem_statements, 
-                                                sampling_params=config)
+            results = []
             outputs = [result.outputs[0].text for result in results]
 
             problem_statements = [problem_statements[i:i+self.dp_rounds+1] for i in range(0, len(problem_statements), self.dp_rounds+1)]

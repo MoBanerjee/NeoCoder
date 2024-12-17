@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "/home/users/ntu/mohor001/neoori/steps/inference_dp.py", line 8, in <module>
+    from src.utils.configs import get_dp_inference_params
+  File "/home/users/ntu/mohor001/neoori/src/utils/configs.py", line 16, in <module>
+    from src.models.model import (
+    ...<5 lines>...
+    )
+  File "/home/users/ntu/mohor001/neoori/src/models/model.py", line 144
+    	args.world_size = int(os.getenv("PBS_NP", "1"))
+    ^
+TabError: inconsistent use of tabs and spaces in indentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			Resource Usage on 2024-12-17 10:07:13.040453:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	JobId: 8948490.pbs101
+	Project: personal-mohor001
+	Exit Status: 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	NCPUs: Requested(16), Used(16)
+	CPU Time Used: 00:00:04
+	Memory: Requested(110gb), Used(245404kb)
+	Vmem Used: 2781320kb
+	Walltime: Requested(01:00:00), Used(00:00:21)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Execution Nodes Used: (x1000c0s1b0n1:ngpus=1:ncpus=16:mem=115343360kb)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	GPU Duration: 22.65secs
+	GPU Power Consumed: 23.76W
+	GPU Max GPU Memory Used: 0.0B
+	Memory Throughput Rate (Average): x1000c0s1b0n1:(gpu2:0%)
+	Memory Throughput Rate (Max): x1000c0s1b0n1:(gpu2:0%)
+	Memory Throughput Rate (Min): x1000c0s1b0n1:(gpu2:0%)
+	GPU SM Utilization (Average): x1000c0s1b0n1:(gpu2:0%)
+	GPU SM Utilization (Max): x1000c0s1b0n1:(gpu2:0%)
+	GPU SM Utilization (Min): x1000c0s1b0n1:(gpu2:0%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Warning: All GPUs have a percentage of 0 utilisation.
+GPU application profile: Idle
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+

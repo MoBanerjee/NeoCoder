@@ -11,13 +11,13 @@ from overrides import overrides
 import openai
 from openai import OpenAI
 import transformers
-from vllm import LLM
+
 import torch
 import torch.distributed as dist
 import boto3
 # import deepspeed
 
-CACHE_DIR="/scratch4/danielk/ylu130/model-hf/"
+CACHE_DIR="/home/users/ntu/mohor001/neoori/scratch4"
 completion_tokens = prompt_tokens = 0
 
 class ds_args(object):
@@ -138,10 +138,23 @@ class OpenModelHF(OpenModel):
     def init_distributed(self, args):
         """Initialize distributed inference.
         """
-        args.rank = int(os.environ["SLURM_PROCID"]) # this is the rank of the current GPU
-        args.gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"])
-        args.local_rank = args.rank - args.gpus_per_node * (args.rank // args.gpus_per_node) # this is the rank of the current GPU within the node
-        args.world_size = int(os.getenv("WORLD_SIZE", "1")) # this is the number of GPUs
+        
+
+# Use PBS_NP for total tasks (world size)
+	args.world_size = int(os.getenv("PBS_NP", "1"))
+
+# Get the node list and determine rank
+	if "PBS_NODEFILE" in os.environ:
+		with open(os.environ["PBS_NODEFILE"]) as f:
+		nodes = f.read().splitlines()
+	else:
+		nodes = ["localhost"]
+
+# Derive rank based on the number of GPUs and nodes
+	args.rank = int(os.getenv("RANK", "0"))  # Set externally if using MPI or multi-node runs
+	args.local_rank = args.rank % len(nodes)  # Rank within the node
+	args.gpus_per_node = int(os.getenv("GPUS_PER_NODE", "1"))  # Manually set if needed
+
 
         if args.rank == 0:
             print(f"using world size: {args.world_size}")

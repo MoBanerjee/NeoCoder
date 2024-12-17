@@ -56,6 +56,7 @@ __MODEL_TO_CLASS__ = {
     "meta-llama/Llama-2-13b-chat-hf": OpenModelVLLM,
     "meta-llama/Llama-2-7b-chat-hf": OpenModelVLLM,
     "meta-llama/Meta-Llama-3-70B-Instruct": OpenModelHF,
+    "meta-llama/Llama-3.1-8B-Instruct": OpenModelHF,
     "allenai/tulu-2-7b": OpenModelVLLM,
     "allenai/tulu-2-13b": OpenModelVLLM,
     "allenai/tulu-2-70b": OpenModelVLLM,
@@ -91,7 +92,7 @@ CODE_REVIEWER = '''You are a code reviewer. Detect all the programming technique
 f'{TECHNIQUES}' + \
 '''\nYour output should look like this:\n- technique 1\n- technique 2\n- technique 3\n- ...'''
 
-CACHE_DIR="/scratch4/danielk/ylu130/model-hf/"
+CACHE_DIR="/home/users/ntu/mohor001/neoori/scratch4"
 
 def get_dp_generate_params(
     dataset_dir: Text,
@@ -175,7 +176,8 @@ def get_dp_inference_params(
 
     is_open_model = model_class != OpenAIModel and model_class != AnthropicModel
     use_vllm = model_class == OpenModelVLLM
-
+    print(use_vllm)
+    print("endd")
     if is_open_model:
         model: OpenModel = model_class(model_name=model_name,
                                        prompt=__PROMPT__[dataset_name])
